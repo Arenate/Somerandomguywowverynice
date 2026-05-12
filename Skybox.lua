@@ -1,765 +1,156 @@
---[[
-
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-
-]]
-
-local player = game.Players.LocalPlayer
-
-local char = player.Character
-
-local tool
-
-for i,v in player:GetDescendants() do
-
-	if v.Name == "SyncAPI" then
-
-		tool = v.Parent
-
-	end
-
-end
-
-for i,v in game.ReplicatedStorage:GetDescendants() do
-
-	if v.Name == "SyncAPI" then
-
-		tool = v.Parent
-
-	end
-
-end
-
-remote = tool.SyncAPI.ServerEndpoint
-
-function _(args)
-
-	remote:InvokeServer(unpack(args))
-
-end
-
-function SetCollision(part,boolean)
-
-	local args = {
-
-		[1] = "SyncCollision",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["CanCollide"] = boolean
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SetAnchor(boolean,part)
-
-	local args = {
-
-		[1] = "SyncAnchor",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Anchored"] = boolean
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function CreatePart(cf,parent)
-
-	local args = {
-
-		[1] = "CreatePart",
-
-		[2] = "Normal",
-
-		[3] = cf,
-
-		[4] = parent
-
-	}
-
-	_(args)
-
-end
-
-function DestroyPart(part)
-
-	local args = {
-
-		[1] = "Remove",
-
-		[2] = {
-
-			[1] = part
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function MovePart(part,cf)
-
-	local args = {
-
-		[1] = "SyncMove",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["CFrame"] = cf
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function Resize(part,size,cf)
-
-	local args = {
-
-		[1] = "SyncResize",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["CFrame"] = cf,
-
-				["Size"] = size
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function AddMesh(part)
-
-	local args = {
-
-		[1] = "CreateMeshes",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SetMesh(part,meshid)
-
-	local args = {
-
-		[1] = "SyncMesh",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["MeshId"] = "rbxassetid://"..meshid
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SetTexture(part, texid)
-
-	local args = {
-
-		[1] = "SyncMesh",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["TextureId"] = "rbxassetid://"..texid
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SetName(part, stringg)
-
-	local args = {
-
-		[1] = "SetName",
-
-		[2] = {
-
-			[1] = part
-
-		},
-
-		[3] = stringg
-
-	}
-
-	_(args)
-
-end
-
-function MeshResize(part,size)
-
-	local args = {
-
-		[1] = "SyncMesh",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Scale"] = size
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function Weld(part1, part2,lead)
-
-	local args = {
-
-		[1] = "CreateWelds",
-
-		[2] = {
-
-			[1] = part1,
-
-			[2] = part2
-
-		},
-
-		[3] = lead
-
-	}
-
-	_(args)
-
-end
-
-function SetLocked(part,boolean)
-
-	local args = {
-
-		[1] = "SetLocked",
-
-		[2] = {
-
-			[1] = part
-
-		},
-
-		[3] = boolean
-
-	}
-
-	_(args)
-
-end
-
-function SetTrans(part,int)
-
-	local args = {
-
-		[1] = "SyncMaterial",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Transparency"] = int
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function CreateSpotlight(part)
-
-	local args = {
-
-		[1] = "CreateLights",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["LightType"] = "SpotLight"
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SyncLighting(part,brightness)
-
-	local args = {
-
-		[1] = "SyncLighting",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["LightType"] = "SpotLight",
-
-				["Brightness"] = brightness
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function Color(part,color)
-
-	local args = {
-
-		[1] = "SyncColor",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Color"] = color,
-
-				["UnionColoring"] = false
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function SpawnDecal(part,side)
-
-	local args = {
-
-		[1] = "CreateTextures",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Face"] = side,
-
-				["TextureType"] = "Decal"
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function AddDecal(part,asset,side)
-
-	local args = {
-
-		[1] = "SyncTexture",
-
-		[2] = {
-
-			[1] = {
-
-				["Part"] = part,
-
-				["Face"] = side,
-
-				["TextureType"] = "Decal",
-
-				["Texture"] = "rbxassetid://".. asset
-
-			}
-
-		}
-
-	}
-
-	_(args)
-
-end
-
-function Sky(id)
-
-	local root = char:WaitForChild("HumanoidRootPart")
-
-	local pos = root.CFrame + Vector3.new(0, 6, 0)
-
-	CreatePart(pos, workspace)
-
-	task.wait(0.2)
-
-	local skyPart
-
-	for _, v in workspace:GetChildren() do
-
-		if v:IsA("BasePart") and (v.Position - pos.Position).magnitude < 1 then
-
-			skyPart = v
-
-			break
-
-		end
-
-	end
-
-	if skyPart then
-
-		SetName(skyPart, "Sky")
-
-		AddMesh(skyPart)
-
-		SetMesh(skyPart, "111891702759441")
-
-		SetTexture(skyPart, id)
-
-		MeshResize(skyPart, Vector3.new(10000, 10000, 10000))
-
-		SetLocked(skyPart, true)
-
-		SetAnchor(true, skyPart)
-
-		-- Add continuous rotation
-		task.spawn(function()
-			while skyPart and skyPart.Parent do
-				local currentCFrame = skyPart.CFrame
-				skyPart.CFrame = currentCFrame * CFrame.Angles(0, math.rad(2), 0)
-				task.wait(0.05)
-			end
-		end)
-
-	end
-
-end
-
-Sky("
-local player = game.Players.LocalPlayer
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
+local head = char:WaitForChild("Head")
+
 local tool
-for i,v in player:GetDescendants() do
-if v.Name == "SyncAPI" then
-tool = v.Parent
-end
-end
-for i,v in game.ReplicatedStorage:GetDescendants() do
-if v.Name == "SyncAPI" then
-tool = v.Parent
-end
-end
-local remote = tool.SyncAPI.ServerEndpoint
-function _(args)
-remote:InvokeServer(unpack(args))
-end
-function SetCollision(part,boolean)
-local args = {
-[1] = "SyncCollision",
-[2] = {
-[1] = {
-["Part"] = part,
-["CanCollide"] = boolean
-}
-}
-}
-_(args)
-end
-function SetAnchor(boolean,part)
-local args = {
-[1] = "SyncAnchor",
-[2] = {
-[1] = {
-["Part"] = part,
-["Anchored"] = boolean
-}
-}
-}
-_(args)
-end
-function CreatePart(cf,parent)
-local args = {
-[1] = "CreatePart",
-[2] = "Normal",
-[3] = cf,
-[4] = parent
-}
-_(args)
-end
-function DestroyPart(part)
-local args = {
-[1] = "Remove",
-[2] = {
-[1] = part
-}
-}
-_(args)
-end
-function MovePart(part,cf)
-local args = {
-[1] = "SyncMove",
-[2] = {
-[1] = {
-["Part"] = part,
-["CFrame"] = cf
-}
-}
-}
-_(args)
-end
-function Resize(part,size,cf)
-local args = {
-[1] = "SyncResize",
-[2] = {
-[1] = {
-["Part"] = part,
-["CFrame"] = cf,
-["Size"] = size
-}
-}
-}
-_(args)
-end
-function AddMesh(part)
-local args = {
-[1] = "CreateMeshes",
-[2] = {
-[1] = {
-["Part"] = part
-}
-}
-}
-_(args)
-end
-function SetMesh(part,meshid)
-local args = {
-[1] = "SyncMesh",
-[2] = {
-[1] = {
-["Part"] = part,
-["MeshId"] = "rbxassetid://"..meshid
-}
-}
-}
-_(args)
-end
-function SetTexture(part, texid)
-local args = {
-[1] = "SyncMesh",
-[2] = {
-[1] = {
-["Part"] = part,
-["TextureId"] = "rbxassetid://"..texid
-}
-}
-}
-_(args)
-end
-function SetName(part, stringg)
-local args = {
-[1] = "SetName",
-[2] = {
-[1] = part
-},
-[3] = stringg
-}
-_(args)
-end
-function MeshResize(part,size)
-local args = {
-[1] = "SyncMesh",
-[2] = {
-[1] = {
-["Part"] = part,
-["Scale"] = size
-}
-}
-}
-_(args)
-end
-function Weld(part1, part2,lead)
-local args = {
-[1] = "CreateWelds",
-[2] = {
-[1] = part1,
-[2] = part2
-},
-[3] = lead
-}
-_(args)
-end
-function SetLocked(part,boolean)
-local args = {
-[1] = "SetLocked",
-[2] = {
-[1] = part
-},
-[3] = boolean
-}
-_(args)
-end
-function SetTrans(part,int)
-local args = {
-[1] = "SyncMaterial",
-[2] = {
-[1] = {
-["Part"] = part,
-["Transparency"] = int
-}
-}
-}
-_(args)
-end
-function Color(part,color)
-local args = {
-[1] = "SyncColor",
-[2] = {
-[1] = {
-["Part"] = part,
-["Color"] = color,
-["UnionColoring"] = false
-}
-}
-}
-_(args)
+
+for _,v in ipairs(player:GetDescendants()) do
+	if v.Name == "SyncAPI" then
+		tool = v.Parent
+	end
 end
 
-function RainbowSky(textureId)
-local root = char:WaitForChild("HumanoidRootPart")
-local pos = root.CFrame + Vector3.new(0, 6, 0)
-CreatePart(pos, workspace)
-task.wait(0.2)
-local skyPart
-for _, v in workspace:GetChildren() do
-if v:IsA("BasePart") and (v.Position - pos.Position).Magnitude < 2 then
-skyPart = v
-break
+for _,v in ipairs(ReplicatedStorage:GetDescendants()) do
+	if v.Name == "SyncAPI" then
+		tool = v.Parent
+	end
 end
+
+local remote = tool.SyncAPI.ServerEndpoint
+
+local function _(args)
+	remote:InvokeServer(unpack(args))
 end
-if not skyPart then return end
-SetName(skyPart, "RainbowSky")
-AddMesh(skyPart)
-SetMesh(skyPart, "111891702759441")
-SetTexture(skyPart, textureId or "118993507606363")
-MeshResize(skyPart, Vector3.new(10000, 10000, 10000))
-SetLocked(skyPart, true)
-SetAnchor(true, skyPart)
-SetTrans(skyPart, 0)
-task.spawn(function()
+
+local function CreatePart(cf,parent)
+	_({
+		"CreatePart",
+		"Normal",
+		cf,
+		parent
+	})
+end
+
+local function MovePart(part,cf)
+	_({
+		"SyncMove",
+		{
+			{
+				Part = part,
+				CFrame = cf
+			}
+		}
+	})
+end
+
+local function Color(part,color)
+	_({
+		"SyncColor",
+		{
+			{
+				Part = part,
+				Color = color,
+				UnionColoring = false
+			}
+		}
+	})
+end
+
+local function SetName(part,name)
+	_({
+		"SetName",
+		{part},
+		name
+	})
+end
+
+local startCF = head.CFrame * CFrame.new(0,4,0)
+
+CreatePart(startCF,workspace)
+
+local part
+
+repeat
+	task.wait()
+
+	for _,v in ipairs(workspace:GetDescendants()) do
+		if v:IsA("BasePart") and (v.Position - startCF.Position).Magnitude < 0.1 then
+			part = v
+			break
+		end
+	end
+until part
+
+SetName(part,"Sky")
+
+_({
+	"CreateMeshes",
+	{
+		{
+			Part = part
+		}
+	}
+})
+
+_({
+	"SyncMesh",
+	{
+		{
+			MeshType = Enum.MeshType.FileMesh,
+			Part = part
+		}
+	}
+})
+
+_({
+	"SyncMesh",
+	{
+		{
+			Scale = Vector3.new(-10000,-10000,-10000),
+			Part = part
+		}
+	}
+})
+
+_({
+	"CreateTextures",
+	{
+		{
+			Part = part,
+			Face = Enum.NormalId.Front,
+			TextureType = "Decal"
+		}
+	}
+})
+
+_({
+	"SyncTexture",
+	{
+		{
+			Part = part,
+			Face = Enum.NormalId.Front,
+			TextureType = "Decal",
+			Texture = "rbxassetid://123777241725663"
+		}
+	}
+})
+
 local hue = 0
-while skyPart and skyPart.Parent do
-hue = (hue + 0.008) % 1
-local color = Color3.fromHSV(hue, 0.95, 0.95)
-Color(skyPart, color)
-task.wait(0.03)
-end
+local rotation = 0
+
+RunService.Heartbeat:Connect(function(dt)
+	hue = (hue + dt * 0.15) % 1
+	rotation = rotation + dt * math.rad(15)
+
+	local rainbow = Color3.fromHSV(hue,1,1)
+
+	Color(part,rainbow)
+
+	local cf = CFrame.new(head.Position + Vector3.new(0,4,0)) * CFrame.Angles(0,rotation,0)
+
+	MovePart(part,cf)
 end)
-task.spawn(function()
-while skyPart and skyPart.Parent do
-local current = skyPart.CFrame
-skyPart.CFrame = current * CFrame.Angles(0, math.rad(0.8), 0)
-task.wait(0.05)
-end
-end)
-end
-RainbowSky("123777241725663")")
