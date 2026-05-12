@@ -535,4 +535,231 @@ function Sky(id)
 
 end
 
-Sky("118993507606363")
+Sky("
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local tool
+for i,v in player:GetDescendants() do
+if v.Name == "SyncAPI" then
+tool = v.Parent
+end
+end
+for i,v in game.ReplicatedStorage:GetDescendants() do
+if v.Name == "SyncAPI" then
+tool = v.Parent
+end
+end
+local remote = tool.SyncAPI.ServerEndpoint
+function _(args)
+remote:InvokeServer(unpack(args))
+end
+function SetCollision(part,boolean)
+local args = {
+[1] = "SyncCollision",
+[2] = {
+[1] = {
+["Part"] = part,
+["CanCollide"] = boolean
+}
+}
+}
+_(args)
+end
+function SetAnchor(boolean,part)
+local args = {
+[1] = "SyncAnchor",
+[2] = {
+[1] = {
+["Part"] = part,
+["Anchored"] = boolean
+}
+}
+}
+_(args)
+end
+function CreatePart(cf,parent)
+local args = {
+[1] = "CreatePart",
+[2] = "Normal",
+[3] = cf,
+[4] = parent
+}
+_(args)
+end
+function DestroyPart(part)
+local args = {
+[1] = "Remove",
+[2] = {
+[1] = part
+}
+}
+_(args)
+end
+function MovePart(part,cf)
+local args = {
+[1] = "SyncMove",
+[2] = {
+[1] = {
+["Part"] = part,
+["CFrame"] = cf
+}
+}
+}
+_(args)
+end
+function Resize(part,size,cf)
+local args = {
+[1] = "SyncResize",
+[2] = {
+[1] = {
+["Part"] = part,
+["CFrame"] = cf,
+["Size"] = size
+}
+}
+}
+_(args)
+end
+function AddMesh(part)
+local args = {
+[1] = "CreateMeshes",
+[2] = {
+[1] = {
+["Part"] = part
+}
+}
+}
+_(args)
+end
+function SetMesh(part,meshid)
+local args = {
+[1] = "SyncMesh",
+[2] = {
+[1] = {
+["Part"] = part,
+["MeshId"] = "rbxassetid://"..meshid
+}
+}
+}
+_(args)
+end
+function SetTexture(part, texid)
+local args = {
+[1] = "SyncMesh",
+[2] = {
+[1] = {
+["Part"] = part,
+["TextureId"] = "rbxassetid://"..texid
+}
+}
+}
+_(args)
+end
+function SetName(part, stringg)
+local args = {
+[1] = "SetName",
+[2] = {
+[1] = part
+},
+[3] = stringg
+}
+_(args)
+end
+function MeshResize(part,size)
+local args = {
+[1] = "SyncMesh",
+[2] = {
+[1] = {
+["Part"] = part,
+["Scale"] = size
+}
+}
+}
+_(args)
+end
+function Weld(part1, part2,lead)
+local args = {
+[1] = "CreateWelds",
+[2] = {
+[1] = part1,
+[2] = part2
+},
+[3] = lead
+}
+_(args)
+end
+function SetLocked(part,boolean)
+local args = {
+[1] = "SetLocked",
+[2] = {
+[1] = part
+},
+[3] = boolean
+}
+_(args)
+end
+function SetTrans(part,int)
+local args = {
+[1] = "SyncMaterial",
+[2] = {
+[1] = {
+["Part"] = part,
+["Transparency"] = int
+}
+}
+}
+_(args)
+end
+function Color(part,color)
+local args = {
+[1] = "SyncColor",
+[2] = {
+[1] = {
+["Part"] = part,
+["Color"] = color,
+["UnionColoring"] = false
+}
+}
+}
+_(args)
+end
+
+function RainbowSky(textureId)
+local root = char:WaitForChild("HumanoidRootPart")
+local pos = root.CFrame + Vector3.new(0, 6, 0)
+CreatePart(pos, workspace)
+task.wait(0.2)
+local skyPart
+for _, v in workspace:GetChildren() do
+if v:IsA("BasePart") and (v.Position - pos.Position).Magnitude < 2 then
+skyPart = v
+break
+end
+end
+if not skyPart then return end
+SetName(skyPart, "RainbowSky")
+AddMesh(skyPart)
+SetMesh(skyPart, "111891702759441")
+SetTexture(skyPart, textureId or "118993507606363")
+MeshResize(skyPart, Vector3.new(10000, 10000, 10000))
+SetLocked(skyPart, true)
+SetAnchor(true, skyPart)
+SetTrans(skyPart, 0)
+task.spawn(function()
+local hue = 0
+while skyPart and skyPart.Parent do
+hue = (hue + 0.008) % 1
+local color = Color3.fromHSV(hue, 0.95, 0.95)
+Color(skyPart, color)
+task.wait(0.03)
+end
+end)
+task.spawn(function()
+while skyPart and skyPart.Parent do
+local current = skyPart.CFrame
+skyPart.CFrame = current * CFrame.Angles(0, math.rad(0.8), 0)
+task.wait(0.05)
+end
+end)
+end
+RainbowSky("123777241725663")")
